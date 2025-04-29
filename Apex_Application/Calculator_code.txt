@@ -1,0 +1,26 @@
+public class Calculator {
+    public Double val1 { get; set; }
+    public Double val2 { get; set; }
+    public Double result { get; set; }
+    public String func { get; set; }
+
+    public Calculator() {
+    }
+
+    public void find() {
+        if (func == 'add') {
+            result = val1 + val2;
+        } else if (func == 'sub') {
+            result = val1 - val2;
+        } else if (func == 'div') {
+            if (val2 != 0) {
+                result = val1 / val2;
+            } else {
+                result = null; // Handling division by zero
+            }
+        } else if (func == 'mod') {
+            Integer temp = Math.mod(Integer.valueOf(val1), Integer.valueOf(val2));
+            result = Double.valueOf(temp);
+        }
+    }
+}
