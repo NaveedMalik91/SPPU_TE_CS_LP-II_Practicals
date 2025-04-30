@@ -16,6 +16,7 @@ class PuzzleState
     int puzzle[N][N];
     int zeroRow, zeroCol;
     int g, h;
+    
     public:
     PuzzleState()
     {
