@@ -186,9 +186,11 @@ public:
     // Recursive DFS helper
     void recursiveDFSUtil(int index, const string &target, vector<bool> &visited, bool &found)
     {
+        //base case
         if (found || visited[index])
             return;
 
+        //continue
         visited[index] = true;
         cout << vertices[index] << " ";
 

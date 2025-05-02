@@ -14,8 +14,8 @@ class PuzzleState
 {
     private:
     int puzzle[N][N];
-    int zeroRow, zeroCol;
-    int g, h;
+    int zeroRow, zeroCol; //cordinates of a any empty cell
+    int g, h; //g = cost so far, h = manhattan distance
     
     public:
     PuzzleState()
@@ -24,6 +24,8 @@ class PuzzleState
         this->h = 0;
         this->zeroRow = 0;
         this->zeroCol = 0;
+
+        //set position of empty tile initially to top left corner
         for (int i = 0; i < N; i++)
         {
             for (int j = 0; j < N; j++)
@@ -33,6 +35,7 @@ class PuzzleState
         }
     }
 
+    //Overload the < operator to compare puzzle states
     bool operator<(const PuzzleState &other) const
     {
         return (g + h) > (other.g + other.h);
@@ -51,6 +54,8 @@ class PuzzleState
         cout << "-----\n";
     }
 
+
+    //Function to check whether the goat state is reached, i.e initial == final
     bool isEqual(const PuzzleState &other) const
     {
         for (int i = 0; i < N; i++)
@@ -64,6 +69,7 @@ class PuzzleState
         return true;
     }
 
+    //Heuristic Function which calculated heuristic cost
     int calculateManhattanDistance() const
     {
         int distance = 0;
@@ -74,6 +80,7 @@ class PuzzleState
                 int value = puzzle[i][j];
                 if (value != 0)
                 {
+                    //Target row and column for each cel value i.e. target cell for a value   
                     int targetRow = (value - 1) / N;
                     int targetCol = (value - 1) % N;
                     distance += abs(i - targetRow) + abs(j - targetCol);
@@ -90,14 +97,16 @@ class PuzzleState
 
         for (int k = 0; k < 4; k++)
         {
+            //add move dir to the empty tile to all possible directions
             int nextZeroRow = zeroRow + moves[k][0];
             int nextZeroCol = zeroCol + moves[k][1];
 
+            //Remain in bounds i.e between 0 to N
             if (nextZeroRow >= 0 && nextZeroRow < N && nextZeroCol >= 0 && nextZeroCol < N)
             {
-                PuzzleState nextState = *this;
-                swap(nextState.puzzle[zeroRow][zeroCol], nextState.puzzle[nextZeroRow][nextZeroCol]);
-                nextState.zeroRow = nextZeroRow;
+                PuzzleState nextState = *this; //Create a new object nextState that is an exact copy of the current puzzle state.
+                swap(nextState.puzzle[zeroRow][zeroCol], nextState.puzzle[nextZeroRow][nextZeroCol]); //swap current state particular position with new position
+                nextState.zeroRow = nextZeroRow;  //update the blank tile position 
                 nextState.zeroCol = nextZeroCol;
                 nextState.g = g + 1;
                 nextState.h = nextState.calculateManhattanDistance();

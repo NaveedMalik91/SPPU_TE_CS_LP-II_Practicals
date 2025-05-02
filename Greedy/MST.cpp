@@ -32,10 +32,11 @@ public:
         int minIndex = -1;
         for (int i = 0; i < V; i++)
         {
+            //at first key[0] = 0 is selected as it is less than intMax
             if (key[i] < minVal && !mst[i])
             {
-                minVal = key[i];
-                minIndex = i;
+                minVal = key[i]; 
+                minIndex = i; 
             }
         }
         return minIndex;
@@ -44,7 +45,8 @@ public:
     // Function to find minimum cost spanning tree using Prim's algorithm
     void primMST()
     {
-        int key[V], parent[V];
+        int key[V];
+        int parent[V];
         bool mst[V];
 
         // Initialize key values, parent and mst set for all vertices

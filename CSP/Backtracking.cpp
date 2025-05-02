@@ -3,6 +3,7 @@ using namespace std;
 
 bool isSafe(int row, int col, int **board, int n) {
   // Check row and column attacks
+  //fix row and traverse all cells. fix the col and traverse all the cells
   for (int i = 0; i < n; i++) {
     if (board[row][i] == 1 || board[i][col] == 1) return false;
   }
@@ -71,7 +72,7 @@ void printSolution(int **board, int n) {
       if (board[i][j] == 1) {
         cout << "Q ";
       } else {
-        cout << ". ";
+        cout << "- ";
       }
     }
     cout << endl;

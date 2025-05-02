@@ -20,7 +20,7 @@ public:
     // Function to schedule jobs to maximize profit
     pair<vector<int>, int> scheduleJobs(Job jobs[], int numJobs) {
         // Sort jobs by profit in descending order
-        sort(jobs, jobs + numJobs, compareByProfit);
+        sort(jobs, jobs + numJobs, compareByProfit); //jobs ->startindex, jobs_numof jobs->lastindex
 
         // Find the maximum deadline
         int maxDeadline = 0;
@@ -29,7 +29,7 @@ public:
         }
 
         // Time slots, initialized to -1
-        vector<int> jobSlots(maxDeadline + 1, -1); // index 0 unused
+        vector<int> jobSlots(maxDeadline + 1, -1); // index 0 unused since deadlines start at 1 (deadline, initialization)
         vector<int> scheduledJobs;
         int totalProfit = 0;
 

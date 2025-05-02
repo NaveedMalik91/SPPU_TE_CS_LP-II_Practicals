@@ -1,19 +1,8 @@
 #include <iostream>
-#include <vector>
 #include <string>
 using namespace std;
 
-struct Symptom {
-    string question;
-    bool response = false;
-};
-
-struct Disease {
-    string name;
-    string explanation;
-    vector<int> symptomIndices; 
-};
-
+// Function to ask yes/no questions
 bool askQuestion(const string& question) {
     char response;
     cout << question << " (y/n): ";
@@ -21,63 +10,118 @@ bool askQuestion(const string& question) {
     return (response == 'y' || response == 'Y');
 }
 
+
+
+// Function to explain the diagnosis based on symptoms
+void explainDiagnosis(const string& diagnosis) {
+    if (diagnosis == "flu") {
+        cout << "Flu is diagnosed because you have high fever, fatigue, and body aches.\n";
+    } else if (diagnosis == "cold") {
+        cout << "You may have a cold because you have a runny nose and frequent sneezing.\n";
+    } else if (diagnosis == "food poisoning") {
+        cout << "Food poisoning is suspected due to symptoms like nausea, vomiting, and diarrhea.\n";
+    } else if (diagnosis == "appendicitis") {
+        cout << "Appendicitis may be diagnosed because of severe abdominal pain and loss of appetite.\n";
+    } else if (diagnosis == "strep throat") {
+        cout << "Strep throat is diagnosed because of a sore throat and swollen tonsils.\n";
+    } else if (diagnosis == "fever") {
+        cout << "You may have a fever because of high body temperature and chills.\n";
+    } else if (diagnosis == "allergies") {
+        cout << "You may have allergies due to symptoms like itching or swelling, and watery eyes.\n";
+    }
+}
+
+// Function to diagnose allergies
+bool diagnoseAllergies() {
+    bool itchingOrSwelling = askQuestion("Do you experience any itching or swelling?");
+    bool redness = askQuestion("Do you have red, watery eyes?");
+    return (itchingOrSwelling || redness);
+}
+
+// Function to diagnose fever
+bool diagnoseFever() {
+    bool highTemperature = askQuestion("Do you have a temperature above 37.5 deg Celsius?");
+    bool chills = askQuestion("Do you experience chills?");
+    return (highTemperature || chills);
+}
+
+// Function to diagnose cold
+bool diagnoseCold() {
+    bool runnyOrStuffyNose = askQuestion("Do you have a runny or stuffy nose?");
+    bool sneezing = askQuestion("Are you sneezing frequently?");
+    return (runnyOrStuffyNose || sneezing);
+}
+
+// Function to diagnose flu
+bool diagnoseFlu() {
+    bool bodyAches = askQuestion("Do you have body aches?");
+    bool fatigue = askQuestion("Do you feel tired or fatigued?");
+    bool highTemperature = askQuestion("Do you have a temperature above 38 deg Celsius?");
+    return (bodyAches && fatigue && highTemperature);
+}
+
+// Function to diagnose strep throat
+bool diagnoseStrepThroat() {
+    bool soreThroat = askQuestion("Do you have a sore throat?");
+    bool swollenTonsils = askQuestion("Are your tonsils swollen?");
+    return (soreThroat && swollenTonsils);
+}
+
+// Function to diagnose food poisoning
+bool diagnoseFoodPoisoning() {
+    bool nausea = askQuestion("Do you feel nauseous?");
+    bool vomiting = askQuestion("Have you been vomiting?");
+    bool diarrhea = askQuestion("Do you have diarrhea?");
+    return (nausea && vomiting && diarrhea);
+}
+
+// Function to diagnose appendicitis
+bool diagnoseAppendicitis() {
+    bool severeAbdominalPain = askQuestion("Do you have severe abdominal pain?");
+    bool lossOfAppetite = askQuestion("Have you lost your appetite?");
+    return (severeAbdominalPain && lossOfAppetite);
+}
+
 int main() {
-    cout << "Welcome to the DSA-based Expert System for Medical Diagnosis\n\n";
+    cout << "Welcome to the Expert System for Medical Diagnosis\n";
 
-    vector<Symptom> symptoms = {
-        {"Do you experience any itching or swelling?"},
-        {"Do you have red, watery eyes?"},
-        {"Do you have a temperature above 37.5°C?"},
-        {"Do you experience chills?"},
-        {"Do you have a runny or stuffy nose?"},
-        {"Are you sneezing frequently?"},
-        {"Do you have body aches?"},
-        {"Do you feel tired or fatigued?"},
-        {"Do you have a temperature above 38°C?"},
-        {"Do you have a sore throat?"},
-        {"Are your tonsils swollen?"},
-        {"Do you feel nauseous?"},
-        {"Have you been vomiting?"},
-        {"Do you have diarrhea?"},
-        {"Do you have severe abdominal pain?"},
-        {"Have you lost your appetite?"}
-    };
+    // Asking about symptoms for various diseases
+    bool hasAllergies = diagnoseAllergies();
+    bool hasFever = diagnoseFever();
+    bool hasCold = diagnoseCold();
+    bool hasFlu = diagnoseFlu();
+    bool hasStrepThroat = diagnoseStrepThroat();
+    bool hasFoodPoisoning = diagnoseFoodPoisoning();
+    bool hasAppendicitis = diagnoseAppendicitis();
 
-    vector<Disease> diseases = {
-        {"allergies", "You may have allergies due to symptoms like itching or swelling, and watery eyes.", {0, 1}},
-        {"fever", "You may have a fever because of high body temperature and chills.", {2, 3}},
-        {"cold", "You may have a cold because you have a runny nose and frequent sneezing.", {4, 5}},
-        {"flu", "Flu is diagnosed because you have high fever, fatigue, and body aches.", {6, 7, 8}},
-        {"strep throat", "Strep throat is diagnosed because of a sore throat and swollen tonsils.", {9, 10}},
-        {"food poisoning", "Food poisoning is suspected due to symptoms like nausea, vomiting, and diarrhea.", {11, 12, 13}},
-        {"appendicitis", "Appendicitis may be diagnosed because of severe abdominal pain and loss of appetite.", {14, 15}}
-    };
+    // Output the diagnosis
+    string diagnosis = "";
 
-    for (auto& symptom : symptoms) {
-        symptom.response = askQuestion(symptom.question);
+    if (hasAllergies) {
+        diagnosis = "allergies";
+    } else if (hasFever) {
+        diagnosis = "fever";
+    } else if (hasCold) {
+        diagnosis = "cold";
+    } else if (hasFlu) {
+        diagnosis = "flu";
+    } else if (hasStrepThroat) {
+        diagnosis = "strep throat";
+    } else if (hasFoodPoisoning) {
+        diagnosis = "food poisoning";
+    } else if (hasAppendicitis) {
+        diagnosis = "appendicitis";
     }
 
-    string bestDiagnosis = "";
-    string explanation = "";
-    int maxMatch = 0;
-
-    for (const auto& disease : diseases) {
-        int matchCount = 0;
-        for (int index : disease.symptomIndices) {
-            if (symptoms[index].response) matchCount++;
-        }
-
-        if (matchCount > maxMatch) {
-            maxMatch = matchCount;
-            bestDiagnosis = disease.name;
-            explanation = disease.explanation;
-        }
-    }
-
-    if (!bestDiagnosis.empty()) {
-        cout << "\nDiagnosis: You may have " << bestDiagnosis << ".\n";
-        cout << explanation << endl;
+    if (!diagnosis.empty()) {
+        cout << "\nDiagnosis: You may have " << diagnosis << ".\n";
+        explainDiagnosis(diagnosis);
     } else {
         cout << "\nNo specific diagnosis could be made based on the provided symptoms.\n";
-    } return 0;
+    }
+
+   
+    cout << endl;
+
+    return 0;
 }
