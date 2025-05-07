@@ -1,0 +1,24 @@
+public class FibonacciSeries {
+    public Integer terms { get; set; }
+    public List<Integer> fibList { get; set; }
+
+    // Constructor
+    public FibonacciSeries() {
+        terms = 0;
+        fibList = new List<Integer>();
+    }
+    
+    // Method to generate Fibonacci series
+    public void generateFibonacci() {
+        fibList.clear();
+        Integer a = 0, b = 1;
+        fibList.add(a);
+        fibList.add(b);
+        for (Integer i = 2; i < terms; i++) {
+            Integer next = a + b;
+            fibList.add(next);
+            a = b;
+            b = next;
+        }
+    }
+}

@@ -16,8 +16,6 @@ patterns = [
      ['Here is the list of movies: ' + ', '.join(movies.keys()) + '. Which movie would you like to watch?', 'Sure! Here are the movies currently playing: ' + ', '.join(movies.keys()) + '.']),
     (r'(.*) showtime|show times|yes show', 
      ['Here are the showtimes for the available movies:' + f"{movie}: {', '.join(timings)}" for movie, timings in movies.items()]),
-    (r'(.*) timing|movie timings|show timings', 
-     ['Here are the timings for each movie:' + f"{movie}: {', '.join(timings)}" for movie, timings in movies.items()]),
     (r'(.*) (morning|afternoon|evening|night)', 
      ['We have showtimes available in the morning, afternoon, evening, and night. When would you like to watch?']),
     (r'(.*) book|want|get|tickets', 

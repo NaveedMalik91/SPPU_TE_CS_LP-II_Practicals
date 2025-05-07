@@ -66,7 +66,7 @@ public:
             if (u == -1) // Exit condition when no more vertices are there
                 break;
 
-            mst[u] = true;
+            mst[u] = true; //important
 
             // Update key values and parent for adjacent vertices
             for (auto edge : adjList[u])

@@ -1,35 +1,22 @@
-<apex:page controller="Calculator">
+<apex:page controller="Scientific_calculator">
     <apex:form >
-        <apex:pageBlock title="Simple Calculator">
-            <apex:pageBlockSection columns="2">
-                <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Value 1"/>
-                    <apex:inputText value="{!val1}"/>
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Value 2"/>
-                    <apex:inputText value="{!val2}"/>
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem >
-                    <apex:selectRadio value="{!func}" layout="pageDirection">
-                        <apex:selectOption itemValue="add" itemLabel="Add"/>
-                        <apex:selectOption itemValue="sub" itemLabel="Subtract"/>
-                        <apex:selectOption itemValue="div" itemLabel="Division"/>
-                        <apex:selectOption itemValue="mod" itemLabel="Modulo Division"/>
-                    </apex:selectRadio>
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem />
-                <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Result"/>
-                    <apex:inputText value="{!result}" id="res"/>
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem >
-                    <apex:actionStatus id="sts" startText="Finding..."/>
-                </apex:pageBlockSectionItem>
+        <apex:pageBlock title="Scientific Calculator">
+            <apex:pageBlockSection >
+                <apex:inputText value="{!input1}" label="Input 1"/>
+                <apex:inputText value="{!input2}" label="Input 2"/>
+                <apex:selectList value="{!operation}" label="Operation" size="1">
+                    <apex:selectOptions value="{!operationsList}"/> <!-- Now correctly references getOperationsList() -->
+                </apex:selectList>
             </apex:pageBlockSection>
+
             <apex:pageBlockButtons >
-                <apex:commandButton value="Find" action="{!find}" reRender="res,sts" status="sts"/>
+                <apex:commandButton value="Calculate" action="{!calculate}" rerender="resultsBlock"/>
             </apex:pageBlockButtons>
+
+            <apex:pageBlockSection id="resultsBlock" title="Result">
+                <apex:outputText value="Result: {!IF(result == null, 'Invalid operation', result)}"/>
+            </apex:pageBlockSection>
         </apex:pageBlock>
     </apex:form>
 </apex:page>
+                                        

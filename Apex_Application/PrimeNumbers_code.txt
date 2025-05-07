@@ -1,0 +1,25 @@
+public class PrimeNumber {
+    public Integer inputNumber { get; set; }  // Input number from the user
+    public String result { get; set; }         // Result of prime check
+
+    // Constructor to initialize default values
+    public PrimeNumber() {
+        inputNumber = 0;
+        result = '';
+    }
+    
+    // Method to check if the number is prime
+    public void checkPrime() {
+        if (inputNumber <= 1) {
+            result = 'Not Prime';  // Numbers less than or equal to 1 are not prime
+        } else {
+            result = 'Prime';  // Assume prime unless proven otherwise
+            for (Integer i = 2; i <= Math.sqrt(inputNumber); i++) {
+                if (Math.mod(inputNumber, i) == 0) {
+                    result = 'Not Prime';  // Divisible by any number other than 1 and itself
+                    break;
+                }
+            }
+        }
+    }
+}

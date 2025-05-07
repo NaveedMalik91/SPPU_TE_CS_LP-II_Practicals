@@ -1,26 +1,58 @@
-public class Calculator {
-    public Double val1 { get; set; }
-    public Double val2 { get; set; }
+public class Scientific_calculator {
+    public Double input1 { get; set; }
+    public Double input2 { get; set; }
+    public String operation { get; set; }
     public Double result { get; set; }
-    public String func { get; set; }
 
-    public Calculator() {
+    // Constructor
+    public Scientific_calculator() {
+        input1 = 0;
+        input2 = 0;
+        operation = '';
+        result = 0;
     }
 
-    public void find() {
-        if (func == 'add') {
-            result = val1 + val2;
-        } else if (func == 'sub') {
-            result = val1 - val2;
-        } else if (func == 'div') {
-            if (val2 != 0) {
-                result = val1 / val2;
-            } else {
-                result = null; // Handling division by zero
-            }
-        } else if (func == 'mod') {
-            Integer temp = Math.mod(Integer.valueOf(val1), Integer.valueOf(val2));
-            result = Double.valueOf(temp);
+    // Returns a list of operations for the dropdown
+    public List<SelectOption> getOperationsList() {
+        List<SelectOption> options = new List<SelectOption>();
+        options.add(new SelectOption('Add', 'Add (+)'));
+        options.add(new SelectOption('Subtract', 'Subtract (-)'));
+        options.add(new SelectOption('Multiply', 'Multiply (*)'));
+        options.add(new SelectOption('Divide', 'Divide (/)'));
+        options.add(new SelectOption('SquareRoot', 'Square Root (√)'));
+        options.add(new SelectOption('Power', 'Power (x^y)'));
+        options.add(new SelectOption('Sine', 'Sine (sin)'));
+        options.add(new SelectOption('Cosine', 'Cosine (cos)'));
+        options.add(new SelectOption('Tangent', 'Tangent (tan)'));
+        options.add(new SelectOption('Log', 'Natural Log (ln)'));
+        options.add(new SelectOption('Log10', 'Log Base 10 (log₁₀)'));
+        return options;
+    }
+
+    // Method to perform calculations
+    public void calculate() {
+        if (operation == 'Add') {
+            result = input1 + input2;
+        } else if (operation == 'Subtract') {
+            result = input1 - input2;
+        } else if (operation == 'Multiply') {
+            result = input1 * input2;
+        } else if (operation == 'Divide') {
+            result = (input2 != 0) ? (input1 / input2) : null; // Handle division by zero
+        } else if (operation == 'SquareRoot') {
+            result = Math.sqrt(input1);
+        } else if (operation == 'Power') {
+            result = Math.pow(input1, input2);
+        } else if (operation == 'Sine') {
+            result = Math.sin(input1);
+        } else if (operation == 'Cosine') {
+            result = Math.cos(input1);
+        } else if (operation == 'Tangent') {
+            result = Math.tan(input1);
+        } else if (operation == 'Log') {
+            result = (input1 > 0) ? Math.log(input1) : null; // Log of negative = undefined
+        } else if (operation == 'Log10') {
+            result = (input1 > 0) ? Math.log10(input1) : null; // Log10 of negative = undefined
         }
     }
 }

@@ -1,0 +1,18 @@
+public class NaturalNumbers {
+    public Integer inputNumber { get; set; }  // Renamed from 'number' to 'inputNumber'
+    public List<Integer> numbersList { get; set; }
+
+    // Constructor
+    public NaturalNumbers() {
+        inputNumber = 0;
+        numbersList = new List<Integer>();
+    }
+    
+    // Method to generate natural numbers up to the given number
+    public void generateNaturalNumbers() {
+        numbersList.clear();
+        for (Integer i = 1; i <= inputNumber; i++) {  // Use 'inputNumber' instead of 'number'
+            numbersList.add(i);
+        }
+    }
+}

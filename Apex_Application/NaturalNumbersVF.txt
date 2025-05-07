@@ -1,0 +1,18 @@
+<apex:page controller="NaturalNumbers">
+    <apex:form >
+        <apex:pageBlock title="Natural Numbers Generator">
+            <apex:pageBlockSection >
+                <apex:inputText value="{!inputNumber}" label="Enter a Number" />  <!-- Input field for the number -->
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Generate Numbers" action="{!generateNaturalNumbers}" rerender="resultsBlock"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection id="resultsBlock" title="Generated Natural Numbers" rendered="{!NOT(ISBLANK(numbersList))}">
+                <apex:outputText value="Generated Numbers: {!numbersList}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+            

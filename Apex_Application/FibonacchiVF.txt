@@ -1,0 +1,17 @@
+<apex:page controller="FibonacciSeries">
+    <apex:form >
+        <apex:pageBlock title="Fibonacci Series Generator" id="resultsBlock">
+            <apex:pageBlockSection >
+                <apex:inputText value="{!terms}" label="Enter Number of Terms" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Generate Fibonacci" action="{!generateFibonacci}" rerender="resultsBlock"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Fibonacci Series" rendered="{!fibList.size > 0}">
+                <apex:outputText value="Fibonacci Series: {!fibList}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,25 @@
+public class TemperatureConversion {
+    public Decimal temperature { get; set; }
+    public String fromUnit { get; set; }
+    public String toUnit { get; set; }
+    public Decimal convertedTemp { get; set; }
+
+    // Constructor
+    public TemperatureConversion() {
+        temperature = 0.0;
+        fromUnit = 'Celsius';
+        toUnit = 'Fahrenheit';
+        convertedTemp = 0.0;
+    }
+
+    // Method to convert temperature
+    public void convertTemperature() {
+        if (fromUnit == 'Celsius' && toUnit == 'Fahrenheit') {
+            convertedTemp = (temperature * 9/5) + 32;
+        } else if (fromUnit == 'Fahrenheit' && toUnit == 'Celsius') {
+            convertedTemp = (temperature - 32) * 5/9;
+        } else {
+            convertedTemp = temperature;
+        }
+    }
+}

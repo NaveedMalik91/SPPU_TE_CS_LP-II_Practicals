@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatBot UI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <meta charset="UTF-8">
+  <title>Movie Bot</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    .chatbox { width: 100%; max-width: 600px; margin: auto; }
+    .messages { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 10px; }
+    .input-area { display: flex; }
+    .input-area input { flex: 1; padding: 10px; }
+    .input-area button { padding: 10px; }
+    .bot { color: green; margin: 5px 0; }
+    .user { color: blue; margin: 5px 0; text-align: right; }
+  </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div id="chat-box" class="chat-box">
-            <!-- Chat bubbles will appear here -->
-        </div>
-        <div class="input-container">
-            <input type="text" id="user-input" placeholder="Type your message..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
+  <div class="chatbox">
+    <h2>🎬 Movie Ticket Bot</h2>
+    <div class="messages" id="messages"></div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function appendMessage(message, sender) {
-            const chatBox = document.getElementById("chat-box");
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add(sender);
-            messageDiv.innerText = message;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll to the bottom
-        }
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const message = input.value.trim();
+      if (!message) return;
 
-        function sendMessage() {
-            const userMessage = document.getElementById("user-input").value;
-            appendMessage(userMessage, "user-message");
+      addMessage('You: ' + message, 'user');
+      input.value = '';
 
-            $.post("/chat", { message: userMessage }, function(data) {
-                appendMessage(data.bot_message, "bot-message");
-            });
+      fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ message })
+      })
+      .then(res => res.json())
+      .then(data => {
+        addMessage('Bot: ' + data.reply, 'bot');
+      });
+    }
 
-            document.getElementById("user-input").value = "";  // Clear input box
-        }
-    </script>
+    function addMessage(text, cls) {
+      const msgBox = document.getElementById('messages');
+      const msg = document.createElement('div');
+      msg.className = cls;
+      msg.textContent = text;
+      msgBox.appendChild(msg);
+      msgBox.scrollTop = msgBox.scrollHeight;
+    }
+  </script>
 </body>
 </html>

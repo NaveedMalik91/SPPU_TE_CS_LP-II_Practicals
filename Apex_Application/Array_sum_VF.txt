@@ -1,0 +1,23 @@
+<apex:page controller="Array_sum">
+    <apex:form>
+        <apex:pageBlock title="Array Sum Calculator" id="resultsBlock">
+            <apex:pageBlockSection>
+                <apex:inputText value="{!arr1Input}" label="Enter Array 1 (comma-separated)" />
+                <br/>
+                <apex:inputText value="{!arr2Input}" label="Enter Array 2 (comma-separated)" />
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons>
+                <apex:commandButton value="Calculate" action="{!calculateSum}" rerender="resultsBlock"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection  title="Results" rendered="{!showResults}">
+                <apex:outputText value="Array 1: {!arr1}" />
+                <br/>
+                <apex:outputText value="Array 2: {!arr2}" />
+                <br/>
+                <apex:outputText value="Sum Array: {!sumArray}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

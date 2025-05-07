@@ -1,0 +1,26 @@
+<apex:page controller="TemperatureConversion">
+    <apex:form >
+        <apex:pageBlock title="Temperature Conversion" id="resultsBlock">
+            <apex:pageBlockSection >
+                <apex:inputText value="{!temperature}" label="Temperature" />
+                <apex:selectList value="{!fromUnit}" size="1">
+                    <apex:selectOption itemLabel="Celsius" itemValue="Celsius" />
+                    <apex:selectOption itemLabel="Fahrenheit" itemValue="Fahrenheit" />
+                </apex:selectList>
+                <apex:selectList value="{!toUnit}" size="1">
+                    <apex:selectOption itemLabel="Celsius" itemValue="Celsius" />
+                    <apex:selectOption itemLabel="Fahrenheit" itemValue="Fahrenheit" />
+                </apex:selectList>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Convert" action="{!convertTemperature}" rerender="resultsBlock"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Converted Temperature" rendered="{!convertedTemp != 0}">
+                <apex:outputText value="Converted Temperature: {!convertedTemp}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+                

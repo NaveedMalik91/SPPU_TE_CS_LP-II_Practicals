@@ -1,0 +1,38 @@
+public class Array_sum {
+    public String arr1Input { get; set; } // Accept comma-separated input for arr1
+    public String arr2Input { get; set; } // Accept comma-separated input for arr2
+    public Integer[] arr1 { get; set; }
+    public Integer[] arr2 { get; set; }
+    public Integer[] sumArray { get; set; }
+    public Boolean showResults { get; set; }
+
+    // Constructor to initialize default values
+    public Array_sum() {
+        arr1Input = '1,2,3';  // Default input for arr1
+        arr2Input = '4,5,6';  // Default input for arr2
+        showResults = false;
+    }
+
+    // Method to calculate the sum of the arrays
+    public void calculateSum() {
+        arr1 = parseInput(arr1Input);
+        arr2 = parseInput(arr2Input);
+        
+        sumArray = new Integer[arr1.size()];
+        for (Integer i = 0; i < arr1.size(); i++) {
+            sumArray[i] = arr1[i] + arr2[i];
+        }
+        showResults = true;
+    }
+
+    // Helper method to convert comma-separated string input to Integer array
+    private Integer[] parseInput(String input) {
+        List<String> stringList = input.split(',');
+        List<Integer> integerList = new List<Integer>();
+        
+        for (String s : stringList) {
+            integerList.add(Integer.valueOf(s.trim()));
+        }
+        return integerList;
+    }
+}
